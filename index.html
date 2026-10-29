@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Código Wild Cards · Ser School</title>
+<meta name="description" content="Mini curso de HTML para grado 6° de Ser School: 4 niveles y 28 actividades para crear páginas web y el álbum Colombian Wild Cards de animales de Colombia, con Honti, el perro del colegio.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=DM+Serif+Display:ital@1&family=Source+Code+Pro:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F5F5; --card: #ffffff; --ink: #36424F; --muted: #5F6B77; --line: #D9DEE3;
+    --lime: #C7EF39; --lime-soft: #eef9c4; --blue: #26588C; --blue-soft: #dfeaf6; --slate: #2D3741; --on-slate: #ffffff;
+    --tag-open: #26588C; --tag-close: #b4426b;
+    --shadow: 0 4px 20px -4px rgba(54, 66, 79, 0.10);
+    --r: 16px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #151d26; --card: #1d2833; --ink: #eef2f6; --muted: #a3b2c1; --line: #2c3a48; --lime-soft: #2a3414; --blue: #8fbde9; --blue-soft: #1e3248; --slate: #0f161d; --tag-open: #8fbde9; --tag-close: #f29bbb; --shadow: 0 4px 20px -4px rgba(0,0,0,.4); }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 500 1rem/1.6 Montserrat, system-ui, -apple-system, "Segoe UI", sans-serif; }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+  h1, h2, h3 { line-height: 1.12; letter-spacing: -0.02em; font-weight: 800; margin: 0; text-wrap: balance; }
+  p { margin: 0; }
+  code { font: 600 .92em "Source Code Pro", ui-monospace, monospace; }
+  .wrap { width: 100%; max-width: 1080px; margin: 0 auto; padding-inline: max(20px, env(safe-area-inset-left, 0px)); }
+  .eyebrow { font-size: .78rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--blue); }
+  .mark { background: var(--lime); color: #2D3741; padding: 0 .18em; border-radius: 10px; }
+  .serif { font-family: "DM Serif Display", Georgia, serif; font-style: italic; font-weight: 400; letter-spacing: 0; }
+
+  header.top { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--card) 92%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+  header.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 10px; }
+  header.top img { height: 40px; width: auto; mix-blend-mode: multiply; }
+  @media (prefers-color-scheme: dark) { header.top img { mix-blend-mode: normal; background: #fff; border-radius: 8px; padding: 2px 6px; } }
+  nav.links { display: flex; gap: 22px; font-weight: 700; font-size: .92rem; }
+  nav.links a { text-decoration: none; color: var(--muted); }
+  nav.links a:hover { color: var(--ink); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: 800 1rem Montserrat, sans-serif; text-decoration: none; padding: 13px 26px; border-radius: 12px; border: 2px solid transparent; cursor: pointer; transition: transform .15s, box-shadow .15s; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn.primary { background: var(--lime); color: #2D3741; box-shadow: 0 6px 18px -6px rgba(150, 190, 20, .7); }
+  .btn.ghost { background: transparent; border-color: var(--ink); color: var(--ink); }
+  .btn.small { padding: 9px 18px; font-size: .92rem; }
+  .btn.big { padding: 16px 30px; font-size: 1.08rem; }
+  .btn svg { width: 1.15em; height: 1.15em; flex: none; }
+  @media (max-width: 760px) { nav.links { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .btn:hover { transform: none; } }
+
+  .hero { padding-block: 52px 40px; }
+  .hero .wrap { display: grid; grid-template-columns: 1.2fr .8fr; gap: 32px; align-items: center; }
+  .hero h1 { font-size: clamp(2.2rem, 5.6vw, 3.7rem); margin: 14px 0 18px; }
+  .hero p.lead { font-size: 1.12rem; color: var(--muted); max-width: 54ch; }
+  .login-box { margin-top: 26px; background: var(--card); border: 2px solid var(--lime); border-radius: 20px; padding: 18px 20px; box-shadow: var(--shadow); max-width: 520px; }
+  .login-box .row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .login-box p { color: var(--muted); font-size: .9rem; font-weight: 600; margin-top: 10px; }
+  .login-box p b { color: var(--ink); }
+  .hero .facts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+  .pill { background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; font-size: .85rem; font-weight: 700; }
+  .hero .art { position: relative; display: grid; place-items: center; }
+  .hero .art::before { content: ""; position: absolute; inset: 6% 8%; background: var(--lime); border-radius: 36% 64% 58% 42% / 44% 40% 60% 56%; }
+  .hero .art img { position: relative; width: min(300px, 78%); filter: drop-shadow(0 18px 24px rgba(45, 55, 65, .25)); animation: bob 3.4s ease-in-out infinite; }
+  .bubble { position: absolute; top: 4%; left: -2%; z-index: 2; background: var(--card); border: 1px solid var(--line); border-radius: 18px 18px 18px 4px; padding: 10px 16px; font-weight: 800; box-shadow: var(--shadow); font-size: .92rem; }
+  .bubble code { color: var(--tag-open); }
+  .bubble code + code { color: var(--tag-close); }
+  @keyframes bob { 50% { transform: translateY(-8px); } }
+  @media (prefers-reduced-motion: reduce) { .hero .art img { animation: none; } html { scroll-behavior: auto; } }
+  /* en pantallas angostas el login va primero y Honti debajo, más pequeño */
+  @media (max-width: 820px) { .hero { padding-block: 32px 28px; } .hero .wrap { grid-template-columns: 1fr; } .hero .art img { width: min(170px, 50%); } .bubble { left: 4%; } }
+
+  section.block { padding-block: 56px; }
+  section.block > .wrap > h2 { font-size: clamp(1.7rem, 4vw, 2.5rem); margin: 8px 0 12px; }
+  section.block > .wrap > p.sub { color: var(--muted); max-width: 62ch; font-size: 1.05rem; }
+  .grid { display: grid; gap: 16px; margin-top: 28px; }
+  .g3 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 22px; box-shadow: var(--shadow); min-width: 0; }
+  .card .ic { width: 46px; height: 46px; border-radius: 12px; background: var(--lime-soft); display: grid; place-items: center; font-size: 1.5rem; margin-bottom: 14px; }
+  .card h3 { font-size: 1.12rem; margin-bottom: 6px; }
+  .card p { color: var(--muted); font-size: .96rem; }
+  .band { background: var(--slate); color: var(--on-slate); }
+  .band .eyebrow { color: var(--lime); }
+  .band .sub { color: #c4cfda !important; }
+  .band .card { background: #36424F; border-color: #4a5866; box-shadow: none; }
+  .band .card p { color: #c4cfda; }
+  .band .card .ic { background: #2D3741; }
+  @media (prefers-color-scheme: dark) { .band .card { background: #1d2833; } }
+
+  .goals { counter-reset: g; list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+  .goals li { counter-increment: g; display: flex; gap: 14px; align-items: flex-start; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; min-width: 0; }
+  .goals li::before { content: counter(g); flex: none; width: 36px; height: 36px; border-radius: 50%; background: var(--lime); color: #2D3741; display: grid; place-items: center; font-weight: 900; }
+  .goals b { display: block; font-size: 1.02rem; margin-bottom: 2px; }
+  .goals span { color: var(--muted); font-size: .94rem; }
+
+  .levels { display: grid; gap: 14px; margin-top: 28px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+  .lv { background: #36424F; border: 1px solid #4a5866; border-top: 6px solid var(--lime); border-radius: 14px; padding: 18px; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+  @media (prefers-color-scheme: dark) { .lv { background: #1d2833; } }
+  .lv small { font-size: .74rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--lime); }
+  .lv h3 { font-size: 1.15rem; }
+  .lv p { color: #c4cfda; font-size: .93rem; }
+  .lv .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 8px; }
+  .lv .tags code { background: #2D3741; color: #dfeaf6; border-radius: 8px; padding: 2px 8px; font-size: .82rem; }
+  .lv .badge { font-size: .85rem; font-weight: 700; color: #fff; }
+
+  .honti-box { display: grid; grid-template-columns: .55fr 1.45fr; gap: 28px; align-items: center; background: var(--lime-soft); border: 1px solid var(--line); border-radius: 24px; padding: 28px; }
+  .honti-box img { width: min(190px, 100%); margin: 0 auto; border-radius: 50%; background: var(--lime); border: 4px solid var(--card); }
+  .honti-box h2 { font-size: clamp(1.5rem, 3.4vw, 2.1rem); margin: 6px 0 10px; }
+  .honti-box p { color: var(--muted); }
+  .honti-box ul { margin: 14px 0 0; padding-left: 20px; color: var(--ink); }
+  .honti-box li { margin-bottom: 6px; }
+  @media (max-width: 700px) { .honti-box { grid-template-columns: 1fr; } .honti-box img { margin: 0; width: 130px; } }
+
+  .cta-final { text-align: center; padding-block: 64px; }
+  .cta-final h2 { font-size: clamp(1.8rem, 4.6vw, 3rem); }
+  .cta-final p { color: var(--muted); max-width: 52ch; margin: 14px auto 26px; }
+  .cta-final small { display: block; margin-top: 14px; color: var(--muted); font-weight: 600; }
+  footer { border-top: 1px solid var(--line); padding-block: 26px; color: var(--muted); font-size: .88rem; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; align-items: center; }
+  footer img { height: 34px; mix-blend-mode: multiply; }
+  @media (prefers-color-scheme: dark) { footer img { mix-blend-mode: normal; background: #fff; border-radius: 8px; padding: 2px 6px; } }
+  :focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a href="#inicio" aria-label="Ser School, inicio"><img src="img/logo-ser-school.png" alt="Ser School"></a>
+    <nav class="links" aria-label="Secciones">
+      <a href="#objetivos">Objetivos</a>
+      <a href="#niveles">Niveles</a>
+      <a href="#como">Cómo aprendes</a>
+      <a href="#honti">Honti</a>
+    </nav>
+    <a class="btn primary small" href="https://script.google.com/a/macros/serschool.edu.co/s/AKfycbwcFV2FqIpNHNulyxk0WuS3sx8EOn3n_XcgAV6vCr-j1DEmZ68d4p4Ar04F9LAHQdYG/exec" target="_top">Iniciar sesión</a>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">HTML · Grado 6° · Pensamiento digital</p>
+        <h1>Crea páginas web con <span class="mark">HTML</span> y arma tu álbum de animales de Colombia.</h1>
+        <p class="lead">Código Wild Cards es un mini curso para aprender a escribir páginas web con tus propias manos. Empiezas con un título y terminas haciendo fichas científicas, tablas y enlaces, igual que las páginas de verdad.</p>
+        <div class="login-box">
+          <div class="row">
+            <a class="btn primary big" href="https://script.google.com/a/macros/serschool.edu.co/s/AKfycbwcFV2FqIpNHNulyxk0WuS3sx8EOn3n_XcgAV6vCr-j1DEmZ68d4p4Ar04F9LAHQdYG/exec" target="_top">
+              <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg>
+              Iniciar sesión
+            </a>
+            <a class="btn ghost" href="#objetivos">Qué vas a aprender</a>
+          </div>
+          <p>Entra con tu correo del colegio, <b>@serschool.edu.co</b>. Tu avance se guarda solo y sigues donde te quedaste.</p>
+        </div>
+        <div class="facts">
+          <span class="pill">4 niveles</span>
+          <span class="pill">28 actividades</span>
+          <span class="pill">Ves tu página al instante</span>
+          <span class="pill">Pistas sin spoilers</span>
+        </div>
+      </div>
+      <div class="art">
+        <div class="bubble">¡Hola! Soy Honti <code>&lt;h1&gt;</code><code>&lt;/h1&gt;</code></div>
+        <img src="img/honti.png" alt="Honti, el perro del colegio, con gorra y buzo, guiñando el ojo con el pulgar arriba">
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="objetivos">
+    <div class="wrap">
+      <p class="eyebrow">Objetivos del curso</p>
+      <h2>Al terminar, vas a poder…</h2>
+      <p class="sub">El curso es parte del proyecto <b>Colombian Wild Cards</b>, un álbum de cromos de animales de Colombia. Cada cromo es una página web, y aquí aprendes a construirla y a entender cada pieza.</p>
+      <ol class="goals">
+        <li><div><b>Entender cómo se construye una página</b><span>El navegador lee etiquetas que se abren y se cierran, como cajas que van una dentro de otra.</span></div></li>
+        <li><div><b>Escribir HTML con tus propias manos</b><span>Títulos, párrafos, fotos, botones, listas, negritas, tablas y enlaces, sin copiar ni pegar.</span></div></li>
+        <li><div><b>Encontrar y arreglar errores</b><span>Leer el código con calma, descubrir qué falta y corregirlo: así trabajan los programadores.</span></div></li>
+        <li><div><b>Usar HTML para la ciencia</b><span>Armar la ficha científica de un animal: nombre científico, ciclo de vida, hábitat, amenazas y clasificación.</span></div></li>
+        <li><div><b>Leer el código que escribe la IA</b><span>Cuando Gemini te ayude a crear tu álbum, vas a entender lo que escribió y podrás revisarlo y mejorarlo.</span></div></li>
+        <li><div><b>Aprender palabras en inglés</b><span>Detrás de cada etiqueta hay una palabra: <code>p</code> es <i lang="en">paragraph</i> y <code>td</code> es <i lang="en">table data</i>.</span></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block band" id="niveles">
+    <div class="wrap">
+      <p class="eyebrow">La ruta</p>
+      <h2>4 niveles, 28 actividades.</h2>
+      <p class="sub">Cada nivel se abre cuando terminas el anterior. Al final de cada uno ganas una insignia con tu nombre.</p>
+      <div class="levels">
+        <div class="lv"><small>Nivel 1 · 6 lecciones</small><h3>Mi primer cromo</h3><p>Las cuatro piezas de un cromo: título, foto, texto y botón.</p><span class="badge">🏅 Guardián del código</span><div class="tags"><code>&lt;h1&gt;</code><code>&lt;p&gt;</code><code>&lt;img&gt;</code><code>&lt;button&gt;</code></div></div>
+        <div class="lv"><small>Nivel 2 · 10 retos</small><h3>Retos con menos ayuda</h3><p>Subtítulos, negritas, listas y saltos de línea. También cazas errores escondidos.</p><span class="badge">🏅 Maestro del código</span><div class="tags"><code>&lt;h2&gt;</code><code>&lt;b&gt;</code><code>&lt;ul&gt;</code><code>&lt;li&gt;</code><code>&lt;br&gt;</code></div></div>
+        <div class="lv"><small>Nivel 3 · 6 misiones</small><h3>Ficha científica</h3><p>Nombres científicos en cursiva, ciclos de vida en orden y animales clasificados por clase.</p><span class="badge">🏅 Científico del código</span><div class="tags"><code>&lt;i&gt;</code><code>&lt;ol&gt;</code></div></div>
+        <div class="lv"><small>Nivel 4 · 6 pasos</small><h3>Mi página web</h3><p>Enlaces a otras páginas y tablas de datos. Terminas con la página de un parque natural.</p><span class="badge">🏅 Creador de páginas web</span><div class="tags"><code>&lt;a&gt;</code><code>&lt;table&gt;</code><code>&lt;tr&gt;</code><code>&lt;td&gt;</code></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="como">
+    <div class="wrap">
+      <p class="eyebrow">Cómo aprendes</p>
+      <h2>Escribes, miras y pruebas.</h2>
+      <p class="sub">Mientras escribes, tu página aparece al lado. Cuando crees que está lista, presionas Comprobar y el curso te dice qué revisar, sin escribirte la respuesta.</p>
+      <div class="grid g3">
+        <div class="card"><div class="ic">👀</div><h3>Ves tu página al instante</h3><p>Cada letra que escribes cambia la página. Los colores te muestran qué etiqueta abre y cuál cierra.</p></div>
+        <div class="card"><div class="ic">💡</div><h3>Pistas que no te dan la respuesta</h3><p>Hasta 3 pistas por actividad, de la más general a la más concreta. Te orientan, pero el código lo escribes tú.</p></div>
+        <div class="card"><div class="ic">🔁</div><h3>El ejercicio gemelo</h3><p>Si necesitas la última pista, después resuelves solo uno parecido. Así compruebas que de verdad lo aprendiste.</p></div>
+        <div class="card"><div class="ic">🤔</div><h3>¿Qué mostrará?</h3><p>Antes de escribir, adivinas qué hará un pedazo de código. Así aprendes a pensar como el navegador.</p></div>
+        <div class="card"><div class="ic">🖼️</div><h3>Álbum secreto</h3><p>Cada actividad que apruebas revela un animal de Colombia: jaguar, cóndor, manatí, colibrí y muchos más.</p></div>
+        <div class="card"><div class="ic">🔊</div><h3>Para todos los ritmos</h3><p>Puedes escuchar cada lección en voz alta, también despacio, y avanzar a tu paso.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="honti-box" id="honti">
+        <img src="img/honti-cabeza.png" alt="Honti">
+        <div>
+          <p class="eyebrow">Tu guía</p>
+          <h2>Honti te explica cada paso.</h2>
+          <p>Honti, el perro de Ser School, te acompaña en todas las actividades.</p>
+          <ul>
+            <li>Te cuenta qué hace cada etiqueta con ejemplos cortos.</li>
+            <li>Te da tu misión: qué tienes que lograr en la página.</li>
+            <li>Salta de alegría cada vez que lo logras.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block band">
+    <div class="wrap">
+      <p class="eyebrow">Juego limpio</p>
+      <h2>Lo que haces es tuyo.</h2>
+      <p class="sub">El curso está hecho para que aprendas tú. Por eso tiene algunas reglas.</p>
+      <div class="grid g3">
+        <div class="card"><div class="ic">⌨️</div><h3>Escribes tú</h3><p>Copiar, pegar y arrastrar texto están desactivados. Cada línea de código sale de tus manos.</p></div>
+        <div class="card"><div class="ic">🖥️</div><h3>Pantalla completa</h3><p>Trabajas sin salir de la página. Si sales varias veces, la actividad se pausa hasta que tu profe la reactive.</p></div>
+        <div class="card"><div class="ic">👩‍🏫</div><h3>Tu profe te acompaña</h3><p>Ve tu avance y las pistas que pides, para ayudarte justo donde lo necesitas.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-final">
+    <div class="wrap">
+      <h2>¿Listo para escribir tu <span class="mark">primera página</span>?</h2>
+      <p>Entra con tu correo del colegio y empieza por la Lección 1. Tu progreso se guarda solo.</p>
+      <a class="btn primary big" href="https://script.google.com/a/macros/serschool.edu.co/s/AKfycbwcFV2FqIpNHNulyxk0WuS3sx8EOn3n_XcgAV6vCr-j1DEmZ68d4p4Ar04F9LAHQdYG/exec" target="_top">Iniciar sesión</a>
+      <small>Solo para cuentas @serschool.edu.co</small>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <img src="img/logo-ser-school.png" alt="Ser School">
+    <span>Código Wild Cards · Mini curso de HTML · Ser School</span>
+  </div>
+</footer>
+</body>
+</html>
